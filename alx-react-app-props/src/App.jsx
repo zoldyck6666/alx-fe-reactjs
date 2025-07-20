@@ -1,5 +1,5 @@
 import React from 'react';
-import UserProfile from './components/UserProfile';
+import UserProfile from './components/UserProfile';  // adjust if path different
 import UserContext from './UserContext';
 
 function App() {
