@@ -1,6 +1,6 @@
-import { useState } from "react";
-import Search from "./components/Search";
-import { searchUsers } from "./services/githubService";
+import { useState, useEffect } from "react";
+import Search from "./Search";  // Fixed import path
+import { searchUsers } from "../services/githubService";
 
 export default function SearchPage() {
   const [users, setUsers] = useState([]);
@@ -97,7 +97,7 @@ export default function SearchPage() {
 function UserDetails({ username }) {
   const [details, setDetails] = useState(null);
 
-  useState(() => {
+  useEffect(() => {
     let isMounted = true;
 
     fetch(`https://api.github.com/users/${username}`)
