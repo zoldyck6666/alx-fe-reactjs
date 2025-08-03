@@ -1,28 +1,39 @@
-const BASE_URL = "https://api.github.com";
+// src/services/githubService.js
 
-export async function searchUsers(params = {}, page = 1) {
-  // Build the search query string for the GitHub API
-  // params can have: q (search term), location, minRepos
-  let query = params.q || "";
-  
+export async function searchUsers(params, page = 1) {
+  if (!params || !params.query) {
+    throw new Error("Query parameter is required");
+  }
+
+  // Build the search query parts
+  const queryParts = [];
+
+  // Base search query (username or keyword)
+  queryParts.push(encodeURIComponent(params.query));
+
+  // Add location filter if provided
   if (params.location) {
-    query += ` location:${params.location}`;
+    queryParts.push(`location:${encodeURIComponent(params.location)}`);
   }
 
+  // Add minimum repos filter if provided
   if (params.minRepos) {
-    query += ` repos:>=${params.minRepos}`;
+    queryParts.push(`repos:>=${params.minRepos}`);
   }
 
-  // Construct the full API URL with query and pagination (per_page = 30 by default)
-  const url = `${BASE_URL}/search/users?q=${encodeURIComponent(query)}&page=${page}&per_page=30`;
+  // Join all parts with plus signs as GitHub API expects
+  const queryString = queryParts.join("+");
 
+  // Construct the full URL
+  const url = `https://api.github.com/search/users?q=${queryString}&page=${page}&per_page=30`;
+
+  // Fetch from GitHub API
   const response = await fetch(url);
 
   if (!response.ok) {
     throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
   }
 
-  const data = await response.json();
-
-  return data; // data has { total_count, incomplete_results, items: [...] }
+  // Parse and return JSON data
+  return response.json();
 }
