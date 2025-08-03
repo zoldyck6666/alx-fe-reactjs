@@ -1,39 +1,25 @@
 // src/services/githubService.js
 
 export async function searchUsers(params, page = 1) {
-  if (!params || !params.query) {
-    throw new Error("Query parameter is required");
-  }
+  const { query, location, minRepos } = params;
 
-  // Build the search query parts
-  const queryParts = [];
+  let searchQuery = query || "";
+  if (location) searchQuery += ` location:${location}`;
+  if (minRepos) searchQuery += ` repos:>=${minRepos}`;
 
-  // Base search query (username or keyword)
-  queryParts.push(encodeURIComponent(params.query));
+  const url = `https://api.github.com/search/users?q=${encodeURIComponent(searchQuery)}&page=${page}&per_page=30`;
 
-  // Add location filter if provided
-  if (params.location) {
-    queryParts.push(`location:${encodeURIComponent(params.location)}`);
-  }
-
-  // Add minimum repos filter if provided
-  if (params.minRepos) {
-    queryParts.push(`repos:>=${params.minRepos}`);
-  }
-
-  // Join all parts with plus signs as GitHub API expects
-  const queryString = queryParts.join("+");
-
-  // Construct the full URL
-  const url = `https://api.github.com/search/users?q=${queryString}&page=${page}&per_page=30`;
-
-  // Fetch from GitHub API
   const response = await fetch(url);
-
   if (!response.ok) {
-    throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+    throw new Error("Failed to fetch users");
   }
+  return response.json();
+}
 
-  // Parse and return JSON data
+export async function fetchUserData(username) {
+  const response = await fetch(`https://api.github.com/users/${username}`);
+  if (!response.ok) {
+    throw new Error("Failed to fetch user data");
+  }
   return response.json();
 }
