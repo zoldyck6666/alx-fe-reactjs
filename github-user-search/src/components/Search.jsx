@@ -12,7 +12,7 @@ function Search() {
     setLoading(true);
     setError(false);
     setUserData(null);
-    
+
     try {
       const data = await fetchUserData(username);
       setUserData(data);
@@ -42,6 +42,7 @@ function Search() {
         <div>
           <img src={userData.avatar_url} alt="Avatar" width="100" />
           <h2>{userData.name}</h2>
+          <p>@{userData.login}</p> {/* ✅ This line is necessary */}
           <a href={userData.html_url} target="_blank" rel="noreferrer">
             Visit GitHub Profile
           </a>
