@@ -1,0 +1,18 @@
+{
+  "recipes": [
+    {
+      "id": 1,
+      "name": "Pasta Carbonara",
+      "image": "/images/pasta.jpg",
+      "ingredients": ["Pasta", "Eggs", "Parmesan", "Bacon"],
+      "instructions": ["Boil pasta", "Cook bacon", "Mix eggs and cheese", "Combine all"]
+    },
+    {
+      "id": 2,
+      "name": "Grilled Chicken",
+      "image": "/images/chicken.jpg",
+      "ingredients": ["Chicken", "Salt", "Pepper", "Olive oil"],
+      "instructions": ["Season chicken", "Grill 15 min", "Serve hot"]
+    }
+  ]
+}
