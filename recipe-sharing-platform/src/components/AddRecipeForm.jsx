@@ -3,78 +3,61 @@ import { useState } from "react";
 export default function AddRecipeForm() {
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
-  const [steps, setSteps] = useState("");
+  const [instructions, setInstructions] = useState("");
   const [errors, setErrors] = useState({});
+
+  // Add this validate function
+  const validate = () => {
+    const newErrors = {};
+    if (!title.trim()) newErrors.title = "Title is required";
+    if (!ingredients.trim()) newErrors.ingredients = "Ingredients are required";
+    if (!instructions.trim()) newErrors.instructions = "Instructions are required";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const validationErrors = {};
-
-    if (!title.trim()) validationErrors.title = "Title is required";
-    if (!ingredients.trim() || ingredients.split(",").length < 2)
-      validationErrors.ingredients = "At least two ingredients required";
-    if (!steps.trim()) validationErrors.steps = "Preparation steps required";
-
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
-
-    // Submit logic here (e.g., API call or updating state)
-    console.log({ title, ingredients, steps });
-
-    // Clear form
+    if (!validate()) return; // use validate function
+    // submit logic here
+    console.log({ title, ingredients, instructions });
     setTitle("");
     setIngredients("");
-    setSteps("");
+    setInstructions("");
     setErrors({});
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-md space-y-4 md:p-8"
-    >
-      <h2 className="text-2xl font-semibold mb-4">Add a New Recipe</h2>
-
+    <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-4 bg-white rounded-md shadow-md space-y-4">
       <div>
+        <label className="block mb-1 font-semibold">Title</label>
         <input
           type="text"
-          placeholder="Recipe Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded md:text-lg"
+          className="w-full border border-gray-300 rounded-md p-2"
         />
-        {errors.title && (
-          <p className="text-red-500 text-sm mt-1">{errors.title}</p>
-        )}
+        {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
       </div>
-
       <div>
+        <label className="block mb-1 font-semibold">Ingredients</label>
         <textarea
-          placeholder="Ingredients (comma separated)"
           value={ingredients}
           onChange={(e) => setIngredients(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded md:h-32"
-        ></textarea>
-        {errors.ingredients && (
-          <p className="text-red-500 text-sm mt-1">{errors.ingredients}</p>
-        )}
+          className="w-full border border-gray-300 rounded-md p-2"
+        />
+        {errors.ingredients && <p className="text-red-500 text-sm">{errors.ingredients}</p>}
       </div>
-
       <div>
+        <label className="block mb-1 font-semibold">Instructions</label>
         <textarea
-          placeholder="Preparation Steps"
-          value={steps}
-          onChange={(e) => setSteps(e.target.value)}
-          className="w-full p-2 border border-gray-300 rounded md:h-32"
-        ></textarea>
-        {errors.steps && (
-          <p className="text-red-500 text-sm mt-1">{errors.steps}</p>
-        )}
+          value={instructions}
+          onChange={(e) => setInstructions(e.target.value)}
+          className="w-full border border-gray-300 rounded-md p-2"
+        />
+        {errors.instructions && <p className="text-red-500 text-sm">{errors.instructions}</p>}
       </div>
-
-      <button className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 md:px-6 md:py-3">
+      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">
         Add Recipe
       </button>
     </form>
