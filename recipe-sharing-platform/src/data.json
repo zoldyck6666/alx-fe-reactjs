@@ -2,17 +2,40 @@
   "recipes": [
     {
       "id": 1,
-      "name": "Pasta Carbonara",
-      "image": "/images/pasta.jpg",
-      "ingredients": ["Pasta", "Eggs", "Parmesan", "Bacon"],
-      "instructions": ["Boil pasta", "Cook bacon", "Mix eggs and cheese", "Combine all"]
+      "name": "Spaghetti Bolognese",
+      "image": "https://picsum.photos/seed/spag/800/400",
+      "ingredients": ["Spaghetti", "Ground beef", "Tomato sauce", "Onion", "Garlic", "Olive oil", "Salt", "Pepper"],
+      "instructions": [
+        "Boil spaghetti in salted water.",
+        "Sauté onion and garlic in olive oil.",
+        "Add ground beef and cook until browned.",
+        "Stir in tomato sauce and simmer.",
+        "Combine with spaghetti and serve."
+      ]
     },
     {
       "id": 2,
-      "name": "Grilled Chicken",
-      "image": "/images/chicken.jpg",
-      "ingredients": ["Chicken", "Salt", "Pepper", "Olive oil"],
-      "instructions": ["Season chicken", "Grill 15 min", "Serve hot"]
+      "name": "Chicken Curry",
+      "image": "https://picsum.photos/seed/curry/800/400",
+      "ingredients": ["Chicken", "Curry paste", "Coconut milk", "Onion", "Ginger", "Garlic", "Salt"],
+      "instructions": [
+        "Sauté onion, ginger, and garlic.",
+        "Add chicken and brown.",
+        "Stir in curry paste and coconut milk.",
+        "Simmer until chicken is cooked.",
+        "Serve with rice."
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Avocado Toast",
+      "image": "https://picsum.photos/seed/avo/800/400",
+      "ingredients": ["Bread", "Avocado", "Lemon", "Salt", "Pepper", "Chili flakes"],
+      "instructions": [
+        "Toast the bread.",
+        "Mash avocado with lemon juice, salt, and pepper.",
+        "Spread on toast and top with chili flakes."
+      ]
     }
   ]
 }
