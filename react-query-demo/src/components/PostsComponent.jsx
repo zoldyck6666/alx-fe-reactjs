@@ -16,7 +16,7 @@ const PostsComponent = () => {
   });
 
   if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Something went wrong while fetching posts.</div>;
+  if (isError) return <div>Something went wrong while fetching posts.</div>; // <-- NO 'error', use isError
 
   return (
     <div>
