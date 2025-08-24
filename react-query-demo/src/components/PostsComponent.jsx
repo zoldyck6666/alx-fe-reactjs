@@ -4,12 +4,16 @@ import { useQuery } from "react-query";
 
 const fetchPosts = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-  // just return json, don't assign any 'error' variable
   return res.json();
 };
 
 const PostsComponent = () => {
-  const { data, isLoading, isError, refetch } = useQuery("posts", fetchPosts);
+  const { data, isLoading, isError, refetch } = useQuery("posts", fetchPosts, {
+    cacheTime: 1000 * 60 * 5,           // cache data for 5 minutes
+    staleTime: 1000 * 60,               // data considered fresh for 1 minute
+    refetchOnWindowFocus: false,        // don't refetch automatically on window focus
+    keepPreviousData: true               // keep previous data while fetching new
+  });
 
   if (isLoading) return <div>Loading...</div>;
   if (isError) return <div>Something went wrong while fetching posts.</div>;
