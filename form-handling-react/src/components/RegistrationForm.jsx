@@ -7,8 +7,16 @@ const RegistrationForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!username || !email || !password) {
-      alert("All fields are required!");
+    if (!username) {
+      alert("Username is required!");
+      return;
+    }
+    if (!email) {
+      alert("Email is required!");
+      return;
+    }
+    if (!password) {
+      alert("Password is required!");
       return;
     }
     console.log({ username, email, password });
@@ -16,23 +24,23 @@ const RegistrationForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input 
-        type="text" 
-        placeholder="Username" 
-        value={username} 
-        onChange={(e) => setUsername(e.target.value)} 
+      <input
+        type="text"
+        placeholder="Username"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
       />
-      <input 
-        type="email" 
-        placeholder="Email" 
-        value={email} 
-        onChange={(e) => setEmail(e.target.value)} 
+      <input
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
       />
-      <input 
-        type="password" 
-        placeholder="Password" 
-        value={password} 
-        onChange={(e) => setPassword(e.target.value)} 
+      <input
+        type="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
       <button type="submit">Register</button>
     </form>
